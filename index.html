@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0b09">
+  <meta name="color-scheme" content="dark">
+  <meta name="author" content="n0shell">
+  <title>n0gym</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="n0gym">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="main" tabindex="-1">
+    <noscript><p class="muted">n0gym needs JavaScript enabled to work.</p></noscript>
+  </main>
+
+  <nav class="nav" aria-label="Main" data-i18n-label="Main">
+    <div class="nav-inner">
+      <a href="#/" data-tab="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+        <span data-i18n="Home">Home</span>
+      </a>
+      <a href="#/routines" data-tab="routines">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        <span data-i18n="Routines">Routines</span>
+      </a>
+      <a href="#/history" data-tab="history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span data-i18n="History">History</span>
+      </a>
+      <a href="#/plates" data-tab="plates">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+        <span data-i18n="Plates">Plates</span>
+      </a>
+      <a href="#/settings" data-tab="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+        <span data-i18n="Settings">Settings</span>
+      </a>
+    </div>
+  </nav>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Aviso de arranque: si la app no llega a pintarse, explica qué falla y permite limpiar la caché
+       (no toca los datos: IndexedDB y localStorage se conservan). -->
+  <script>
+    (function () {
+      var failed = [];
+      var errors = [];
+      window.addEventListener('error', function (e) {
+        var el = e.target;
+        if (el && (el.tagName === 'SCRIPT' || el.tagName === 'LINK')) failed.push(el.getAttribute('src') || el.getAttribute('href'));
+        else if (e.message) errors.push(e.message);
+      }, true);
+      window.addEventListener('unhandledrejection', function (e) {
+        errors.push(String((e.reason && e.reason.message) || e.reason));
+      });
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var main = document.getElementById('main');
+          if (!main || main.querySelector('.top, .banner, .card, .empty, .brand, h1')) return;
+          var es = /^es/i.test(navigator.language || '');
+          var box = document.createElement('div');
+          box.style.cssText = 'padding:16px;border:1px solid #ff7d70;border-radius:14px;background:#141612;color:#eef1e8;margin-top:16px';
+          var title = document.createElement('p');
+          title.style.fontWeight = '700';
+          title.textContent = es ? 'n0gym no ha podido arrancar' : 'n0gym could not start';
+          var detail = document.createElement('p');
+          detail.style.cssText = 'color:#a0a796;font-size:.9rem;overflow-wrap:anywhere;margin:8px 0 12px';
+          detail.textContent = (failed.length ? (es ? 'No se cargaron: ' : 'Failed to load: ') + failed.join(', ') + '. ' : '') + (errors.length ? 'Error: ' + errors[0] : '');
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.style.cssText = 'min-height:48px;padding:0 20px;border:0;border-radius:12px;background:#c6f432;color:#101500;font:inherit;font-weight:700';
+          button.textContent = es ? 'Limpiar caché y recargar (tus datos se conservan)' : 'Clear cache and reload (your data is kept)';
+          button.onclick = function () {
+            var jobs = [];
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+              jobs.push(navigator.serviceWorker.getRegistrations().then(function (list) {
+                return Promise.all(list.map(function (r) { return r.unregister(); }));
+              }));
+            }
+            if (window.caches) {
+              jobs.push(caches.keys().then(function (keys) { return Promise.all(keys.map(function (k) { return caches.delete(k); })); }));
+            }
+            Promise.all(jobs).catch(function () {}).then(function () { location.reload(); });
+          };
+          box.appendChild(title);
+          box.appendChild(detail);
+          box.appendChild(button);
+          main.appendChild(box);
+        }, 2500);
+      });
+    })();
+  </script>
+
+  <!-- Orden importante: configuración, idiomas, almacenamiento, lógica, interfaz, vistas y controlador -->
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="db.js"></script>
+  <script src="logic.js"></script>
+  <script src="images.js"></script>
+  <script src="backup.js"></script>
+  <script src="timer.js"></script>
+  <script src="plates.js"></script>
+  <script src="ui.js"></script>
+  <script src="views.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

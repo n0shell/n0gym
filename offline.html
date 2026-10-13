@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0b09">
+  <meta name="color-scheme" content="dark">
+  <title>n0gym offline</title>
+  <style>
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+      background: #0a0b09; color: #eef1e8; font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    main { max-width: 420px; text-align: center; }
+    h1 { margin: 0 0 8px; font-size: 1.4rem; }
+    p { margin: 0 0 20px; color: #a0a796; }
+    a { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px;
+      border-radius: 12px; background: #c6f432; color: #101500; font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="t-title">You are offline</h1>
+    <p id="t-text">This page is not saved on the device. Your data is safe: the app works offline from the start page.</p>
+    <a id="t-link" href="./">Go to home</a>
+  </main>
+  <script>
+    (function () {
+      var D = {
+        es: ['Sin conexión', 'Esta página no está guardada en el dispositivo. Tus datos siguen a salvo: la aplicación funciona sin conexión desde el inicio.', 'Ir al inicio'],
+        zh: ['你已离线', '此页面未保存在设备上。你的数据是安全的：应用可以从首页离线使用。', '回到首页'],
+        hi: ['आप ऑफ़लाइन हैं', 'यह पेज डिवाइस पर सहेजा नहीं गया है। आपका डेटा सुरक्षित है: ऐप होम पेज से ऑफ़लाइन चलता है।', 'होम पर जाएँ'],
+        fr: ['Vous êtes hors ligne', "Cette page n'est pas enregistrée sur l'appareil. Vos données sont en sécurité : l'application fonctionne hors ligne depuis l'accueil.", "Aller à l'accueil"],
+        de: ['Du bist offline', 'Diese Seite ist nicht auf dem Gerät gespeichert. Deine Daten sind sicher: Die App funktioniert ab der Startseite offline.', 'Zur Startseite'],
+        pt: ['Você está offline', 'Esta página não está salva no dispositivo. Seus dados estão seguros: o aplicativo funciona offline a partir do início.', 'Ir para o início'],
+        ru: ['Нет подключения', 'Эта страница не сохранена на устройстве. Ваши данные в безопасности: приложение работает офлайн с главной страницы.', 'На главную']
+      };
+      var lang = 'en';
+      try { lang = localStorage.getItem('n0gym.lang') || 'en'; } catch (e) { /* sin almacenamiento */ }
+      var d = D[lang];
+      if (!d) return;
+      document.documentElement.lang = lang;
+      document.getElementById('t-title').textContent = d[0];
+      document.getElementById('t-text').textContent = d[1];
+      document.getElementById('t-link').textContent = d[2];
+    })();
+  </script>
+</body>
+</html>
