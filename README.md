@@ -2,7 +2,7 @@
 
 # ⚡ n0gym
 
-[![GitHub Pages](https://img.shields.io/badge/status-online-success?style=for-the-badge&logo=githubpages&logoColor=white)](https://n0shell.github.io/n0gym/)
+[![GitHub Pages](https://img.shields.io/badge/status-online-success?style=for-the-badge&logo=githubpages&logoColor=white)](https://n0gym.n0shell.es)
 [![Descargar APK](https://img.shields.io/badge/APK-Android_Disponible_📱-brightgreen?style=for-the-badge&logo=android&logoColor=white)](https://github.com/n0shell/n0gym/releases)
 [![iOS WebApp](https://img.shields.io/badge/iOS-Web_PWA_🍏-black?style=for-the-badge&logo=apple&logoColor=white)](https://n0shell.github.io/n0gym/)
 [![Discord](https://img.shields.io/badge/Discord-Comunidad-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/m3HJWDr)
@@ -12,7 +12,7 @@
 
 **Una aplicación moderna, rápida y orientada a dispositivos móviles para registrar tus entrenamientos, gestionar rutinas y llevar el control absoluto de tus progresos en el gimnasio.**
 
-[🚀 Probar WebApp en Vivo](https://n0shell.github.io/n0gym/) | [📱 Descargar APK para Android](https://github.com/n0shell/n0gym/releases) | [💬 Servidor de Discord](https://discord.gg/m3HJWDr)
+[🚀 Probar WebApp en Vivo](https://n0gym.n0shell.es) | [📱 Descargar APK para Android](https://github.com/n0shell/n0gym/releases) | [💬 Servidor de Discord](https://discord.gg/m3HJWDr)
 
 </div>
 
@@ -20,7 +20,7 @@
 
 > 📱 **¡Disponible para Android e iOS!** 
 > * **Android:** Descarga e instala la versión nativa en archivo **`.apk`** directamente desde la sección de [Releases de GitHub](https://github.com/n0shell/n0gym/releases).
-> * **iOS (iPhone):** Accede a la [WebApp en Vivo](https://n0shell.github.io/n0gym/) desde Safari y añádela a tu pantalla de inicio para disfrutar de una experiencia de app nativa sin pasar por la App Store.
+> * **iOS (iPhone):** Accede a la [WebApp en Vivo](https://n0gym.n0shell.es) desde Safari y añádela a tu pantalla de inicio para disfrutar de una experiencia de app nativa sin pasar por la App Store.
 
 ---
 
@@ -50,7 +50,7 @@
 3. Instálala en tu dispositivo y comienza a entrenar.
 
 ### 🍏 Para iPhone / iOS (PWA)
-1. Abre [https://n0shell.github.io/n0gym/](https://n0shell.github.io/n0gym/) en **Safari**.
+1. Abre [https://n0gym.n0shell.es](https://n0gym.n0shell.es) en **Safari**.
 2. Pulsa el botón de **Compartir** en la barra inferior de navegación.
 3. Selecciona la opción **"Añadir a la pantalla de inicio"**.
 4. ¡Listo! Tendrás un acceso directo idéntico al de una aplicación nativa.
